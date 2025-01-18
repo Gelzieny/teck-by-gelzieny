@@ -10,6 +10,7 @@ export default {
     extend: {
       boxShadow: {
         'box-shadow': '0 0.2rem 0.5rem var(--shadow-color)',
+        'dark-box-shadow': '0 0.2rem 0.5rem var(--dark-shadow-color)',
       },
       colors: {
         'color-bg': '#FDFDFD',
@@ -17,6 +18,10 @@ export default {
         'main-color': '#754EF9',
         'white-color': '#FDFDFD',
         'shadow-color': 'rgba(0, 0, 0, .2)',
+
+        'dark-color-bg': '#0B061F',
+        'dark-color-text': '#FDFDFD',
+        'dark-shadow-color': 'rgba(0, 0, 0, .7)',
       },
     },
   },

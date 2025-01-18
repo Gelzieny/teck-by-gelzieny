@@ -17,8 +17,9 @@ export function NavItem({ href, label }: NavItemProps) {
       <Link
         href={href}
         className={cn(
-          'text-[#000] font-medium text-2xl hover:text-main-color relative',
-          isActive && 'active-link'
+          'font-medium text-2xl hover:text-main-color relative transition-all duration-300',
+          isActive && 'active-link',
+          'sm:text-xl md:text-2xl lg:text-2xl'
         )}
       >
         {label}

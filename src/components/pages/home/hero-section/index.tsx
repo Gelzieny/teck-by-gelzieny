@@ -5,6 +5,8 @@ import { FaXTwitter } from 'react-icons/fa6'
 import { MdFileDownload } from 'react-icons/md'
 import { IoLogoInstagram } from 'react-icons/io5'
 import { TbBrandGithub, TbBrandLinkedin } from 'react-icons/tb'
+import { useContext } from 'react'
+import { ThemeContext } from '../../../theme/theme-provider'
 
 const MOCK_CONTACTS = [
   {
@@ -30,6 +32,8 @@ const MOCK_CONTACTS = [
 ]
 
 export function HeroSection() {
+  const { theme } = useContext(ThemeContext)
+
   return (
     <section className="w-full h-auto  flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[100px]">
       <div className="container flex items-start justify-between flex-col lg:flex-row">
@@ -52,7 +56,7 @@ export function HeroSection() {
                 key={index}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex justify-center items-center rounded-full w-10 h-10 bg-transparent border-2 box-shadow  text-main-color hover:bg-main-color hover:text-white"
+                className="inline-flex justify-center items-center rounded-full w-10 h-10 bg-transparent border-2 border-main-color box-shadow text-main-color hover:bg-main-color hover:text-white dark:border-main-color dark:text-main-color dark:hover:bg-main-color dark:hover:text-color-bg"
               >
                 {icon}
               </a>
