@@ -42,7 +42,7 @@ const skillItem = [
 
 export function KnowledgeSection() {
   return (
-    <section className="container py-16">
+    <section className="container py-12">
       <SectionTitle title="Conhecimentos" subtitle="competências" />
 
       <div className="grid gap-3 grid-cols-[repeat(auto-fill,minmax(250px,1fr))] pt-[5%]">

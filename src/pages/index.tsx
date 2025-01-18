@@ -1,5 +1,6 @@
 import { PageTitle } from '../components/page-title'
 import { HeroSection } from '../components/pages/home/hero-section'
+import { HighlightedProjects } from '../components/pages/home/highlighted-projects'
 import { KnowledgeSection } from '../components/pages/home/knowledge-section'
 
 export default function Home() {
@@ -9,8 +10,7 @@ export default function Home() {
 
       <HeroSection />
       <KnowledgeSection />
-
-      {/* <HighlightedProjects /> */}
+      <HighlightedProjects />
       {/* <WorkExperience /> */}
     </>
   )
