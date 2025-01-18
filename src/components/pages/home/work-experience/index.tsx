@@ -3,7 +3,7 @@ import { ExperienceItem } from './experience-item'
 
 export function WorkExperience() {
   return (
-    <section className="container py-16 flex lg:gap-16">
+    <section className="container py-8 flex lg:gap-16">
       <div className="max-w-[420px]">
         <SectionTitle
           title="Experiência Profissional"

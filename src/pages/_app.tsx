@@ -2,8 +2,10 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Poppins } from 'next/font/google'
 
-import { Header } from '../components/header'
-import { ThemeProvider } from '../components/theme/theme-provider'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
+import { ContactForm } from '@/components/contact-form'
+import { ThemeProvider } from '@/components/theme/theme-provider'
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -17,6 +19,8 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className={`${poppins.variable}`}>
         <Header />
         <Component {...pageProps} />
+        <ContactForm />
+        <Footer />
       </div>
     </ThemeProvider>
   )
