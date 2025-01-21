@@ -5,9 +5,6 @@ import { FaXTwitter } from 'react-icons/fa6'
 import { MdFileDownload } from 'react-icons/md'
 import { IoLogoInstagram } from 'react-icons/io5'
 import { TbBrandGithub, TbBrandLinkedin } from 'react-icons/tb'
-import { useContext } from 'react'
-import { ThemeContext } from '../../../theme/theme-provider'
-import { HomePageInfo } from '../../../../types/page-info'
 
 const MOCK_CONTACTS = [
   {
@@ -32,12 +29,8 @@ const MOCK_CONTACTS = [
   },
 ]
 
-type HeroSectionProps = {
-  homeInfo: HomePageInfo
-}
 
-export function HeroSection({ homeInfo }: HeroSectionProps) {
-  console.log(homeInfo)
+export function HeroSection() {
 
   return (
     <section className="w-full h-auto  flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[100px]">
