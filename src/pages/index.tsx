@@ -12,22 +12,6 @@ export const metadata = {
   title: 'Home',
 }
 
-type PageData = {
-  introduction: {
-    raw: string
-  }
-  technologies: {
-    name: string
-  }[]
-  profilePicture: {
-    url: string
-  }
-  sociais: {
-    url: string
-    iconSvg: string
-  }[]
-}
-
 type ErrorProps = {
   message: string
 }
@@ -79,6 +63,13 @@ async function getPages() {
                 url 
                 iconSvg
               }
+              knownTechs {
+                name
+                startDate
+                imageSvg {
+                  url
+                }
+              }
             }
           }
         `,
@@ -123,7 +114,7 @@ export default function Home({ pageData }: HomeProps) {
       <PageTitle title="Tech by Gelzieny" description="Tech by Gelzieny" />
       <ScrollToContact />
       <HeroSection homeInfo={pageData} />
-      <KnowledgeSection />
+      <KnowledgeSection techs={pageData} />
       <HighlightedProjects />
       <WorkExperience />
     </>

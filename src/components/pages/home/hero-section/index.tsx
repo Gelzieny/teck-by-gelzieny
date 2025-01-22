@@ -9,29 +9,6 @@ import { HomePageInfo } from '@/types/page-info'
 import { RichText } from '../../../rich-text'
 import { CMSIcon } from '../../../cms-icon'
 
-const MOCK_CONTACTS = [
-  {
-    url: 'https://www.facebook.com/gelzieny/',
-    icon: <FaFacebookF />,
-  },
-  {
-    url: 'https://x.com/GelzienyRM',
-    icon: <FaXTwitter />,
-  },
-  {
-    url: 'https://www.instagram.com/gelzieny/',
-    icon: <IoLogoInstagram />,
-  },
-
-  {
-    url: 'https://www.linkedin.com/in/gelzieny/',
-    icon: <TbBrandLinkedin />,
-  },
-  {
-    url: 'https://github.com/gelzieny',
-    icon: <TbBrandGithub />,
-  },
-]
 
 type HeroSectionProps = {
   homeInfo: HomePageInfo | null
@@ -39,7 +16,6 @@ type HeroSectionProps = {
 
 export function HeroSection({ homeInfo }: HeroSectionProps) {
   const texto = homeInfo?.introduction?.raw?.children
-  console.log(homeInfo?.profilePicture.url)
 
   return (
     <section className="w-full h-auto  flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[100px]">

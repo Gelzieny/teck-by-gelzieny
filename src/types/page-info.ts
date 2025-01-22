@@ -5,10 +5,14 @@ export type Social = {
   iconSvg: string
 }
 
+export type Image = {
+  url: string
+}
+
 export type KnownTech = {
-  iconSvg: string
   name: string
   startDate: string
+  imageSvg: Image[]
 }
 
 export type Technology = {
