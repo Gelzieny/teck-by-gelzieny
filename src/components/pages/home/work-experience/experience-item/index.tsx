@@ -4,6 +4,7 @@ import { format, differenceInMonths, differenceInYears } from 'date-fns'
 
 import { TechBadge } from '../../../../tech-badge'
 import { WorkExperiences } from '../../../../../types/page-info'
+import { RichText } from '../../../../rich-text'
 
 type ExperienceItemProps = {
   experience: WorkExperiences
@@ -87,40 +88,12 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
           </span>
           <p className=" dark:text-gray-400 text-gray-700 text-justify">
-            {description.raw.children.map((item, index) => {
-              if (item.type === 'paragraph') {
-                // Renderiza parágrafos
-                return (
-                  <p
-                    key={`experience-${companyName}-description-${index}`}
-                    className="dark:text-gray-400 text-gray-700 text-justify"
-                  >
-                    {item.children
-                      .map((child, childIndex) => child.text)
-                      .join(' ')}
-                  </p>
-                )
-              } else if (item.type === 'bulleted-list') {
-                // Renderiza listas não ordenadas
-                return (
-                  <ul
-                    key={`experience-${companyName}-description-${index}`}
-                    className="list-disc pl-5 dark:text-gray-400 text-gray-700"
-                  >
-                    {item.children.map((listItem, listItemIndex) => (
-                      <li key={`list-item-${listItemIndex}`}>
-                        {listItem.children
-                          .map(listChild =>
-                            listChild.children.map(c => c.text).join(' ')
-                          )
-                          .join(' ')}
-                      </li>
-                    ))}
-                  </ul>
-                )
-              }
-              return null // Ignora outros tipos se necessário
-            })}
+            {description.raw.children.map((item, index) => (
+              <RichText
+                key={`experience-description-${index}`}
+                content={item}
+              />
+            ))}
           </p>
         </div>
         <p className="dark:text-gray-400 text-gray-500 text-sm mb-3 mt-6 font-semibold">

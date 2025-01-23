@@ -8,15 +8,23 @@ export function RichText({ ...props }: RichTextProps) {
     <CMSRichText
       {...props}
       renderers={{
+        p: ({ children }) => (
+          <p className="dark:text-gray-400 text-gray-700 text-justify">
+            {children}
+          </p>
+        ),
+        ul: ({ children }) => (
+          <ul className="list-disc pl-5 dark:text-gray-400 text-gray-700 flex flex-col gap-1">
+            {children}
+          </ul>
+        ),
+        li: ({ children }) => (
+          <li className="dark:text-gray-400 text-gray-700">{children}</li>
+        ),
         bold: ({ children }) => (
           <b className="text-[#0B061F] dark:text-color-bg font-bold">
             {children}
           </b>
-        ),
-        ul: ({ children }) => (
-          <ul className="list-disc list-inside pl-2 flex flex-col gap-1">
-            {children}
-          </ul>
         ),
         a: ({ children, ...props }) => (
           <a
