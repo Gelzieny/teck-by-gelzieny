@@ -73,6 +73,22 @@ export type ProjectsPageStaticData = {
   }[]
 }
 
+export type WorkExperiences = {
+  companyLogo: {
+    url: string
+  }
+  role: string
+  companyName: string
+  companyUrl: string
+  startDate: string
+  endDate: string
+  technologies: Technology[]
+  description: {
+    raw: RichTextContent
+  }
+}
+
 export type HomePageData = {
   page: HomePageInfo
+  workExperiences: WorkExperiences[]
 }

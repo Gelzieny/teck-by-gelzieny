@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { HiArrowNarrowRight } from 'react-icons/hi'
 
 import { Link } from '../../../../link'
+import { Project } from '../../../../../types/page-info'
 
 const teckItem = [
   {
@@ -47,12 +48,16 @@ const teckItem = [
   },
 ]
 
-export function ProejctCard() {
+type ProjectCardProps = {
+  project: Project
+}
+
+export function ProejctCard({ project }: ProjectCardProps) {
   return (
     <div className="flex gap-6 lg:gap-12 flex-col lg:flex-row ">
       <div className="w-full h-full">
         <Image
-          src="/images/portfolio1.jpg"
+          src={project.thumbnail.url}
           alt="Project Card"
           width={500}
           height={500}
@@ -67,19 +72,21 @@ export function ProejctCard() {
             height={20}
             alt="Logo"
           />
-          <span>Projeto</span>
+          <span>{project.title}</span>
         </h3>
-        <p className=" my-6 text-justify">
-          O <strong>Relógio Digital</strong> é um projeto simples e funcional
-          que exibe a hora atual em formato digital, com atualização em tempo
-          real.
-        </p>
+        <p className=" my-6 text-justify">{project.shortDescription}</p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[300px]">
-          {teckItem.map(({ imgSrc, label }, key) => (
-            <Image src={imgSrc} alt={label} width={30} height={30} key={key} />
+          {project.technologies.map(({ name, imageSvg }, key) => (
+            <Image
+              src={imageSvg.url}
+              alt={name}
+              width={30}
+              height={30}
+              key={key}
+            />
           ))}
         </div>
-        <Link href="/projects/relogio-digital">
+        <Link href={`/projects/${project.slug}`}>
           Ver projeto
           <HiArrowNarrowRight className=" dark:text-pure-white text-dark-black w-5 h-5 hover:text-main-site-color transition-colors " />
         </Link>

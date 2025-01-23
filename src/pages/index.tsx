@@ -6,7 +6,7 @@ import { HeroSection } from '../components/pages/home/hero-section'
 import { WorkExperience } from '../components/pages/home/work-experience'
 import { KnowledgeSection } from '../components/pages/home/knowledge-section'
 import { HighlightedProjects } from '../components/pages/home/highlighted-projects'
-import { HomePageData } from '../types/page-info'
+import { HomePageData, WorkExperiences } from '../types/page-info'
 
 export const metadata = {
   title: 'Home',
@@ -19,6 +19,7 @@ type ErrorProps = {
 type HomeProps = {
   pageData: HomePageData | null
   error: ErrorProps | null
+  workExperiences: WorkExperiences[]
 }
 
 async function getPages() {
@@ -70,7 +71,37 @@ async function getPages() {
                   url
                 }
               }
+              highlightProjects {
+                slug
+                thumbnail {
+                  url
+                }
+                title
+                shortDescription
+                technologies {
+                  name
+                  imageSvg {
+                    url
+                  }
+                }
+              }
             }
+            workExperiences {
+              companyLogo {
+                url
+              }
+              role
+              companyName
+              companyUrl
+              startDate
+              endDate
+              description {
+                raw
+              }
+              technologies {
+                name
+              }
+            }  
           }
         `,
       }),
@@ -82,11 +113,14 @@ async function getPages() {
 
     const json = await response.json()
 
-    if (!json.data || !json.data.page) {
-      throw new Error('Dados da página não encontrados')
+    if (!json.data || !json.data.page || !json.data.workExperiences) {
+      throw new Error('Dados não encontrados')
     }
 
-    return json.data.page
+    return {
+      pageData: json.data.page,
+      workExperiences: json.data.workExperiences,
+    }
   } catch (error) {
     console.error('Erro ao obter a página:', error)
     throw error
@@ -95,10 +129,10 @@ async function getPages() {
 
 export async function getServerSideProps() {
   try {
-    const pageData = await getPages()
+    const { pageData, workExperiences } = await getPages()
 
     return {
-      props: { pageData },
+      props: { pageData, workExperiences },
     }
   } catch (error) {
     console.error('Erro ao carregar os dados:', error)
@@ -108,15 +142,16 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ pageData }: HomeProps) {
+export default function Home({ pageData, workExperiences }: HomeProps) {
+
   return (
     <>
       <PageTitle title="Tech by Gelzieny" description="Tech by Gelzieny" />
       <ScrollToContact />
       <HeroSection homeInfo={pageData} />
       <KnowledgeSection techs={pageData} />
-      <HighlightedProjects />
-      <WorkExperience />
+      <HighlightedProjects projects={pageData} />
+      <WorkExperience experiences={workExperiences}/>
     </>
   )
 }

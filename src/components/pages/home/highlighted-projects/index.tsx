@@ -4,8 +4,15 @@ import { ProejctCard } from './project-card'
 import { Link } from '../../../link'
 import { Divider } from '../../../divider'
 import { SectionTitle } from '../../../section-title'
+import { Project } from '../../../../types/page-info'
 
-export function HighlightedProjects() {
+type HighlightedProjectsProps = {
+  projects: Project[]
+}
+
+export function HighlightedProjects({ projects }: HighlightedProjectsProps) {
+  const project = projects?.highlightProjects
+
   return (
     <section className="container py-12">
       <SectionTitle title="Projetos em destaque" subtitle="destaques" />
@@ -13,8 +20,14 @@ export function HighlightedProjects() {
       <Divider className="mb-16" />
 
       <div>
-        <ProejctCard />
-        <Divider className="mb-16" />
+        {/* <ProejctCard /> */}
+        {project?.map(item => (
+          <div key={item.slug}>
+            <ProejctCard project={item} />
+            <Divider className="my-16" />
+          </div>
+        ))}
+
         <p className="flex items-center gap-1.5">
           <span className="text-gray-400 font-bold">Se interessou?</span>
           <Link href="/projects" className="inline-flex">

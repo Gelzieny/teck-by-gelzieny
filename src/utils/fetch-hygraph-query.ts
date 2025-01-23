@@ -5,8 +5,6 @@ type Props = {
 }
 
 export async function fetchHygraphQuery({ query }: Props) {
-  console.log('Vai da certo', process.env.NEXT_HYGRAPH_ENDPOINT)
-
   const envSchema = z.object({
     NEXT_HYGRAPH_ENDPOINT: z
       .string()
