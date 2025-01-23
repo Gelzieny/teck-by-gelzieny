@@ -22,32 +22,26 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
     technologies,
   } = experience
 
-  // Certifique-se de validar as datas antes de usá-las
   if (!startDate) {
     throw new Error('startDate é obrigatório e deve ser uma data válida.')
   }
 
-  // Converte as datas em objetos Date
   const start = new Date(startDate)
   const end = endDate ? new Date(endDate) : new Date()
 
-  // Valida se as datas são válidas
   if (isNaN(start.getTime()) || (endDate && isNaN(end.getTime()))) {
     throw new Error('startDate ou endDate são inválidos.')
   }
 
-  // Formatação das datas
   const formattedStartDate = format(start, 'MMM yyyy', { locale: ptBR })
   const formattedEndDate = endDate
     ? format(end, 'MMM yyyy', { locale: ptBR })
     : 'O momento'
 
-  // Cálculo da duração em anos e meses
   const totalMonths = differenceInMonths(end, start)
-  const years = Math.floor(totalMonths / 12) // Converte meses em anos completos
-  const monthsRemaining = totalMonths % 12 // Calcula os meses restantes
+  const years = Math.floor(totalMonths / 12)
+  const monthsRemaining = totalMonths % 12
 
-  // Formatação da duração
   const formattedDuration =
     years > 0
       ? `${years} ano${years > 1 ? 's' : ''}${
@@ -56,9 +50,6 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             : ''
         }`
       : `${totalMonths} mês${totalMonths > 1 ? 'es' : ''}`
-
-  // Output (se necessário, para debug)
-  console.log({ formattedStartDate, formattedEndDate, formattedDuration })
 
   return (
     <div className="grid grid-cols-[40px,1fr] gap-4 md:gap-10">
@@ -88,22 +79,17 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
           </span>
           <p className=" dark:text-gray-400 text-gray-700 text-justify">
-            {description.raw.children.map((item, index) => (
-              <RichText
-                key={`experience-description-${index}`}
-                content={item}
-              />
-            ))}
+            <RichText content={description?.raw?.children} />
           </p>
         </div>
         <p className="dark:text-gray-400 text-gray-500 text-sm mb-3 mt-6 font-semibold">
           Competências
         </p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
-          {technologies.map((tech, i) => (
+          {technologies.map((tech, index) => (
             <TechBadge
               name={tech.name}
-              key={`experience-${companyName}-tech-${tech.name}`}
+              key={`experience-${companyName}-tech-${tech.name}-${index}`}
             />
           ))}
         </div>

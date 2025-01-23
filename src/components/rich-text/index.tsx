@@ -1,9 +1,13 @@
+'use client'
+
 import { RichText as CMSRichText } from '@graphcms/rich-text-react-renderer'
 import { ComponentProps } from 'react'
 
 type RichTextProps = ComponentProps<typeof CMSRichText>
 
 export function RichText({ ...props }: RichTextProps) {
+  if (!props.content) return null
+
   return (
     <CMSRichText
       {...props}
