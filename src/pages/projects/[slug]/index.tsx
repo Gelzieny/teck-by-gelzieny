@@ -192,7 +192,7 @@ export default function Project({ projectsData }: ProjectPageProps) {
   return (
     <>
       <ProjectDetails project={projectsData?.project} />
-      <ProjectSections sections={projectsData?.project.sections} />
+      <ProjectSections sections={projectsData?.project.sections || []} />
     </>
   )
 }

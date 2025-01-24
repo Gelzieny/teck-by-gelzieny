@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import { ProjectSection } from '@/types/page-info'
 
-type ProjectSectionsProps = {
-  sections: ProjectSection[]
-}
+export function ProjectSections({ sections }: { sections: ProjectSection[] }) {
 
-export function ProjectSections({ sections }: ProjectSectionsProps) {
+
   return (
     <section className="container my-5 md:my-5 flex flex-col gap-8 md:gap-32">
       {sections.map(section => (
