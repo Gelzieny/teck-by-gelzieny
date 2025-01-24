@@ -7,7 +7,7 @@ type WorkExperienceProps = {
 }
 
 export function WorkExperience({ experiences }: WorkExperienceProps) {
-  console.log(experiences)
+
   return (
     <section className="container py-8 flex lg:gap-16">
       <div className="max-w-[420px]">

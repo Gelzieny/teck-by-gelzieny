@@ -78,13 +78,13 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
           <span className="dark:text-gray-500  text-color-text/50">
             {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
           </span>
-          <p className=" dark:text-gray-400 text-gray-700 text-justify">
+          <div className=" dark:text-gray-400 text-gray-700 text-justify">
             <RichText content={description?.raw?.children} />
-          </p>
+          </div>
         </div>
-        <p className="dark:text-gray-400 text-gray-500 text-sm mb-3 mt-6 font-semibold">
+        <div className="dark:text-gray-400 text-gray-500 text-sm mb-3 mt-6 font-semibold">
           Competências
-        </p>
+        </div>
         <div className="flex gap-x-2 gap-y-3 flex-wrap lg:max-w-[350px] mb-8">
           {technologies.map((tech, index) => (
             <TechBadge
