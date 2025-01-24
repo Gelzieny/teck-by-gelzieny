@@ -24,7 +24,9 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
       />
 
       <div className="text-gray-400 text-center max-w-[640px] my-4 sm:my-6 text-sm sm:text-base">
-        <RichText content={project?.description.raw} />
+        {project?.description.raw && (
+          <RichText content={project.description.raw} />
+        )}
       </div>
       <div className="w-full max-w-[330px] flex flex-wrap gap-2 items-center justify-center">
         {project?.technologies.map((item, key) => (
