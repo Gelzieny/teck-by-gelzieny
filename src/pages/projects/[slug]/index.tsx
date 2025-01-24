@@ -185,14 +185,10 @@ export async function generateMetadata({ params: { slug } }: ProjectProps) {
 }
 
 export default function Project({ projectsData }: ProjectPageProps) {
-  if (!projectsData) {
-    return <div>Erro ao carregar os dados do projeto.</div>
-  }
-
   return (
     <>
-      <ProjectDetails project={projectsData?.project} />
-      <ProjectSections sections={projectsData?.project.sections || []} />
+      <ProjectDetails project={projectsData} />
+      <ProjectSections sections={projectsData?.sections} />
     </>
   )
 }
