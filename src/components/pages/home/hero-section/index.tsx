@@ -1,21 +1,16 @@
 import Image from 'next/image'
-
-import { FaFacebookF } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
 import { MdFileDownload } from 'react-icons/md'
-import { IoLogoInstagram } from 'react-icons/io5'
-import { TbBrandGithub, TbBrandLinkedin } from 'react-icons/tb'
-import { HomePageInfo } from '@/types/page-info'
-import { RichText } from '../../../rich-text'
-import { CMSIcon } from '../../../cms-icon'
 
+import { HomePageInfo } from '@/types/page-info'
+import { RichText } from '@/components/rich-text'
+import { CMSIcon } from '@/components/cms-icon'
 
 type HeroSectionProps = {
-  homeInfo: HomePageInfo | null
+  homeInfo: HomePageInfo | null | undefined
 }
 
 export function HeroSection({ homeInfo }: HeroSectionProps) {
-  const texto = homeInfo?.introduction?.raw?.children
+  const texto = homeInfo?.introduction?.raw || null
 
   return (
     <section className="w-full h-auto  flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[100px]">
@@ -24,7 +19,7 @@ export function HeroSection({ homeInfo }: HeroSectionProps) {
           <p className="text-2xl font-medium">Olá 👋, eu sou</p>
           <h1 className="text-5xl font-bold mt-1">Gelzieny R. Martins</h1>
           <div className="text-justify text-lx my-6">
-            <RichText content={texto} />
+            {texto && <RichText content={texto} />}
           </div>
           <div className="flex gap-4 sm:gap-3 items-center flex-wrap sm:flex-nowrap  sm:mt-0">
             {homeInfo?.sociais.map(({ url, iconSvg }, index) => (

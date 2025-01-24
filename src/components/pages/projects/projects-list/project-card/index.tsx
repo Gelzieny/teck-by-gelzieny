@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Project } from '../../../../../types/page-info'
+import { Project } from '@/types/page-info'
 
 type ProjectCardProps = {
   project: Project

@@ -1,9 +1,9 @@
 import Link from 'next/link'
+import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 
 import { NavItem } from './nav-item'
 import { ThemeToggle } from '../theme/theme-toggle'
-import { useState } from 'react'
 
 const NAV_ITEMS = [
   {

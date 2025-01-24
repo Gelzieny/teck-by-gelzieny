@@ -1,5 +1,3 @@
-// 'use client'
-
 import { HiArrowNarrowLeft } from 'react-icons/hi'
 
 import { Link } from '../../../link'

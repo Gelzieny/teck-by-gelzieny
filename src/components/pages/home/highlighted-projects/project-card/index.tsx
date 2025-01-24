@@ -2,51 +2,7 @@ import Image from 'next/image'
 import { HiArrowNarrowRight } from 'react-icons/hi'
 
 import { Link } from '../../../../link'
-import { Project } from '../../../../../types/page-info'
-
-const teckItem = [
-  {
-    imgSrc: '/images/icons/python.svg',
-    label: 'Python',
-  },
-  {
-    imgSrc: '/images/icons/fastapi.svg',
-    label: 'FastAPI',
-  },
-  {
-    imgSrc: '/images/icons/django.svg',
-    label: 'Django',
-  },
-  {
-    imgSrc: '/images/icons/javascript.svg',
-    label: 'JavaScript',
-  },
-  {
-    imgSrc: '/images/icons/html5.svg',
-    label: 'HTML5',
-  },
-  {
-    imgSrc: '/images/icons/css3.svg',
-    label: 'CSS3',
-  },
-
-  {
-    imgSrc: '/images/icons/tailwindcss.svg',
-    label: 'TailwindCSS',
-  },
-  {
-    imgSrc: '/images/icons/react.svg',
-    label: 'React.js',
-  },
-  {
-    imgSrc: '/images/icons/next.svg',
-    label: 'Next.js',
-  },
-  {
-    imgSrc: '/images/icons/vite.svg',
-    label: 'Vite.js',
-  },
-]
+import { Project } from '@/types/page-info'
 
 type ProjectCardProps = {
   project: Project
@@ -76,10 +32,10 @@ export function ProejctCard({ project }: ProjectCardProps) {
         </h3>
         <p className=" my-6 text-justify">{project.shortDescription}</p>
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[300px]">
-          {project.technologies.map(({ name, imageSvg }, key) => (
+          {project.technologies.map((item, key) => (
             <Image
-              src={imageSvg.url}
-              alt={name}
+              src={item.imageSvg.url}
+              alt={item.name}
               width={30}
               height={30}
               key={key}

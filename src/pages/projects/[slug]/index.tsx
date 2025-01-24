@@ -1,7 +1,6 @@
+import { ProjectPageData } from '@/types/page-info'
 import { ProjectDetails } from '@/components/pages/project/project-details'
 import { ProjectSections } from '@/components/pages/project/project-sections'
-import { z } from 'zod'
-import { ProjectPageData } from '../../../types/page-info'
 
 type ProjectProps = {
   params: {
@@ -10,71 +9,26 @@ type ProjectProps = {
 }
 
 type ProjectPageProps = {
-  projectData: ProjectPageData | null
+  projectsData: ProjectPageData | null | undefined
 }
 
-async function getPages({
-  params: { slug },
-}: ProjectProps): Promise<ProjectPageData | null> {
-  const envSchema = z.object({
-    NEXT_HYGRAPH_ENDPOINT: z
-      .string()
-      .url('O endpoint do Hygraph deve ser uma URL válida'),
-  })
+async function fetchHygraphData<T>(
+  query: string,
+  variables: Record<string, unknown> = {}
+): Promise<T> {
+  const hygraphEndpoint = process.env.NEXT_HYGRAPH_ENDPOINT
 
-  const parsedEnv = envSchema.safeParse(process.env)
-
-  if (!parsedEnv.success) {
-    console.error(
-      'Erro de validação das variáveis de ambiente:',
-      parsedEnv.error.format()
+  if (!hygraphEndpoint) {
+    throw new Error(
+      'NEXT_HYGRAPH_ENDPOINT não configurado nas variáveis de ambiente.'
     )
-    throw new Error('Variáveis de ambiente inválidas')
   }
-
-  const hygraphEndpoint = parsedEnv.data.NEXT_HYGRAPH_ENDPOINT
 
   try {
     const response = await fetch(hygraphEndpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query: `
-          query PageInfoQuery ($slug: String!){
-            project(where: {slug: $slug}) {
-              pageThumbnail {
-                url
-              }
-              thumbnail {
-                url
-              }
-              sections {
-                title
-                image {
-                  url
-                }
-              }
-              title
-              shortDescription
-              description {
-                raw
-                text
-              }
-              technologies {
-                name
-                imageSvg {
-                  url
-                }
-              }
-              liveProjectUrl
-              githubUrl
-            }
-          }
-        `,
-        variables: { slug },
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
     })
 
     if (!response.ok) {
@@ -82,41 +36,164 @@ async function getPages({
     }
 
     const json = await response.json()
-
-    if (!json.data || !json.data.project) {
-      throw new Error('Dados não encontrados')
+    if (!json.data) {
+      throw new Error('Nenhum dado retornado pelo Hygraph')
     }
 
-    return json.data.project
+    return json.data
   } catch (error) {
-    console.error('Erro ao obter a página:', error)
+    console.error('Erro ao buscar dados do Hygraph:', error)
     throw error
   }
 }
 
-export async function getServerSideProps(context: ProjectProps) {
+export async function getStaticPaths() {
+  const query = `
+    query ProjectsSlugsQuery {
+      projects(first: 100) {
+        slug
+      }
+    }
+  `
+
   try {
-    const { params } = context
-    const projectsData = await getPages({ params })
+    const data = await fetchHygraphData<{ projects: { slug: string }[] }>(query)
+    const paths = data.projects.map(project => ({
+      params: { slug: project.slug },
+    }))
 
     return {
-      props: { projectsData },
+      paths,
+      fallback: 'blocking',
     }
   } catch (error) {
-    console.error('Erro ao carregar os dados:', error)
+    console.error('Erro em getStaticPaths:', error)
+    return { paths: [], fallback: false }
+  }
+}
+
+export async function getStaticProps({ params }: ProjectProps) {
+  const query = `
+    query ProjectDetails($slug: String!) {
+      project(where: { slug: $slug }) {
+        pageThumbnail {
+          url
+        }
+        thumbnail {
+          url
+        }
+        sections {
+          title
+          image {
+            url
+          }
+        }
+        title
+        shortDescription
+        description {
+          raw
+          text
+        }
+        technologies {
+          name
+          imageSvg {
+            url
+          }
+        }
+        liveProjectUrl
+        githubUrl
+      }
+    }
+  `
+
+  try {
+    const data = await fetchHygraphData<{ project: ProjectPageData }>(query, {
+      slug: params.slug,
+    })
+
+    const project = data.project
+
+    if (!project) {
+      return { notFound: true }
+    }
+
     return {
-      props: { pageData: null, error: 'Erro ao carregar os dados' },
+      props: { projectsData: project },
+      revalidate: 10, // ISR
+    }
+  } catch (error) {
+    console.error('Erro em getStaticProps:', error)
+    return {
+      props: { projectsData: null },
+    }
+  }
+}
+
+export async function generateMetadata({ params: { slug } }: ProjectProps) {
+  const query = `
+    query ProjectMetadata($slug: String!) {
+      project(where: { slug: $slug }) {
+        title
+        description {
+          text
+        }
+        thumbnail {
+          url
+        }
+      }
+    }
+  `
+
+  try {
+    const data = await fetchHygraphData<{
+      project: {
+        title: string
+        description: { text: string }
+        thumbnail: { url: string }
+      }
+    }>(query, { slug })
+
+    const project = data.project
+
+    if (!project) {
+      return {
+        title: 'Projeto não encontrado',
+        description: 'O projeto solicitado não foi encontrado.',
+      }
+    }
+
+    return {
+      title: project.title,
+      description: project.description.text,
+      openGraph: {
+        images: [
+          {
+            url: project.thumbnail.url,
+            width: 1200,
+            height: 630,
+          },
+        ],
+      },
+    }
+  } catch (error) {
+    console.error('Erro em generateMetadata:', error)
+    return {
+      title: 'Erro ao carregar metadados',
+      description: 'Houve um erro ao buscar os metadados do projeto.',
     }
   }
 }
 
 export default function Project({ projectsData }: ProjectPageProps) {
-  console.log('projectsData', projectsData)
+  if (!projectsData) {
+    return <div>Erro ao carregar os dados do projeto.</div>
+  }
 
   return (
     <>
+      {/* <PageTitle title={projectsData?.title} description={projectsData?.title} /> */}
       <ProjectDetails project={projectsData} />
-      <ProjectSections sections={projectsData.sections} />
+      <ProjectSections sections={projectsData?.sections} />
     </>
   )
 }

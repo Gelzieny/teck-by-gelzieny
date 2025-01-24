@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
 import { TbArrowNarrowUp } from 'react-icons/tb'
+import { useCallback, useEffect, useState } from 'react'
+
 import { Button } from '../button'
 
 export function BackToTop() {

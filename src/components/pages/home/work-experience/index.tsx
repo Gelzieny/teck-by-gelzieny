@@ -1,13 +1,12 @@
-import { WorkExperiences as IWorkExperience } from '../../../../types/page-info'
-import { SectionTitle } from '../../../section-title'
 import { ExperienceItem } from './experience-item'
+import { SectionTitle } from '../../../section-title'
+import { WorkExperiences as IWorkExperience } from '@/types/page-info'
 
 type WorkExperienceProps = {
   experiences: IWorkExperience[]
 }
 
 export function WorkExperience({ experiences }: WorkExperienceProps) {
-
   return (
     <section className="container py-8 flex lg:gap-16">
       <div className="max-w-[420px]">

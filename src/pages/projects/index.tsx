@@ -1,10 +1,9 @@
 import { z } from 'zod'
 
-import { ProjectsPageData } from '../../types/page-info'
+import { ProjectsPageData } from '@/types/page-info'
 import { PageIntroduction } from '@/components/pages/projects/page-introduction'
 import { ProjectsList } from '@/components/pages/projects/projects-list'
-
-
+import { PageTitle } from '@/components/page-title'
 
 type ProjectsProps = {
   projectsData: ProjectsPageData | null
@@ -65,7 +64,6 @@ async function getPages() {
     }
 
     return json.data.projects
-
   } catch (error) {
     console.error('Erro ao obter a página:', error)
     throw error
@@ -87,9 +85,10 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Projects({projectsData}: ProjectsProps) {
+export default function Projects({ projectsData }: ProjectsProps) {
   return (
     <>
+      <PageTitle title="Projetos" description="Projetos" />
       <PageIntroduction />
       <ProjectsList projects={projectsData} />
     </>

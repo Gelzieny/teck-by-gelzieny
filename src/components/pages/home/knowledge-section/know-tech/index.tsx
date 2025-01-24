@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { getRelativeTimeString } from '../../../../../utils/get-relative-time'
+import { getRelativeTimeString } from '@/utils/get-relative-time'
 
 type KnowledgeSectionProps = {
   imgSrc: string

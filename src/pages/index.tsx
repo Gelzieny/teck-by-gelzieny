@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-import { PageTitle } from '../components/page-title'
-import ScrollToContact from '../components/scroll-contact'
-import { HeroSection } from '../components/pages/home/hero-section'
-import { WorkExperience } from '../components/pages/home/work-experience'
-import { KnowledgeSection } from '../components/pages/home/knowledge-section'
-import { HighlightedProjects } from '../components/pages/home/highlighted-projects'
-import { HomePageData, WorkExperiences } from '../types/page-info'
+import { PageTitle } from '@/components/page-title'
+import ScrollToContact from '@/components/scroll-contact'
+import { HeroSection } from '@/components/pages/home/hero-section'
+import { WorkExperience } from '@/components/pages/home/work-experience'
+import { KnowledgeSection } from '@/components/pages/home/knowledge-section'
+import { HighlightedProjects } from '@/components/pages/home/highlighted-projects'
+import { HomePageData, WorkExperiences } from '@/types/page-info'
 
 export const metadata = {
   title: 'Home',
@@ -118,7 +118,7 @@ async function getPages() {
     }
 
     return {
-      pageData: json.data.page,
+      pageData: json.data,
       workExperiences: json.data.workExperiences,
     }
   } catch (error) {
@@ -143,15 +143,14 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ pageData, workExperiences }: HomeProps) {
-
   return (
     <>
       <PageTitle title="Tech by Gelzieny" description="Tech by Gelzieny" />
       <ScrollToContact />
-      <HeroSection homeInfo={pageData} />
-      <KnowledgeSection techs={pageData} />
-      <HighlightedProjects projects={pageData} />
-      <WorkExperience experiences={workExperiences}/>
+      <HeroSection homeInfo={pageData?.page} />
+      <KnowledgeSection techs={pageData?.page} />
+      <HighlightedProjects projects={pageData?.page} />
+      <WorkExperience experiences={workExperiences} />
     </>
   )
 }

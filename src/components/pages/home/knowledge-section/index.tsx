@@ -1,9 +1,9 @@
-import { KnownTech as IKnownTech } from '../../../../types/page-info'
+import { HomePageInfo } from '@/types/page-info'
 import { SectionTitle } from '../../../section-title'
 import { KnowTech } from './know-tech'
 
 type KnownTechsProps = {
-  techs: IKnownTech[]
+  techs: HomePageInfo | null | undefined
 }
 
 export function KnowledgeSection({ techs }: KnownTechsProps) {

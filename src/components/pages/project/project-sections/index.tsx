@@ -1,10 +1,9 @@
 import Image from 'next/image'
-import { ProjectSection } from '../../../../types/page-info'
+import { ProjectSection } from '@/types/page-info'
 
 type ProjectSectionsProps = {
   sections: ProjectSection[]
 }
-
 
 export function ProjectSections({ sections }: ProjectSectionsProps) {
   return (

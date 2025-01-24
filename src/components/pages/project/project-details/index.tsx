@@ -4,18 +4,16 @@ import { HiArrowNarrowLeft } from 'react-icons/hi'
 
 import { Link } from '../../../link'
 import { Button } from '../../../button'
+import { Project } from '@/types/page-info'
+import { RichText } from '../../../rich-text'
 import { TechIcon } from '../../../tech-icon'
 import { SectionTitle } from '../../../section-title'
-import { Project } from '../../../../types/page-info'
-import { RichText } from '../../../rich-text'
-
 
 type ProjectDetailsProps = {
   project: Project
 }
 
 export function ProjectDetails({ project }: ProjectDetailsProps) {
-
   return (
     <section className="w-full sm:min-h-[750px] flex flex-col items-center justify-end relative pb-10 sm:pb-24 py-24 px-6 overflow-hidden">
       <div className="absolute inset-0 z-[-1] bg-cover bg-center bg-no-repeat bg-opacity-50" />

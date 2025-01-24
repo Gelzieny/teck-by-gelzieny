@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { ptBR } from 'date-fns/locale'
-import { format, differenceInMonths, differenceInYears } from 'date-fns'
+import { format, differenceInMonths } from 'date-fns'
 
-import { TechBadge } from '../../../../tech-badge'
-import { WorkExperiences } from '../../../../../types/page-info'
 import { RichText } from '../../../../rich-text'
+import { TechBadge } from '../../../../tech-badge'
+import { WorkExperiences } from '@/types/page-info'
 
 type ExperienceItemProps = {
   experience: WorkExperiences
@@ -21,6 +21,8 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
     role,
     technologies,
   } = experience
+
+  const texto = description?.raw || null
 
   if (!startDate) {
     throw new Error('startDate é obrigatório e deve ser uma data válida.')
@@ -79,7 +81,7 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             {formattedStartDate} • {formattedEndDate} • ({formattedDuration})
           </span>
           <div className=" dark:text-gray-400 text-gray-700 text-justify">
-            <RichText content={description?.raw?.children} />
+            {texto && <RichText content={texto} />}
           </div>
         </div>
         <div className="dark:text-gray-400 text-gray-500 text-sm mb-3 mt-6 font-semibold">

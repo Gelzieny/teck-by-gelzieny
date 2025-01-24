@@ -4,8 +4,9 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { HiArrowNarrowRight } from 'react-icons/hi'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SectionTitle } from '../section-title'
+
 import { Button } from '../button'
+import { SectionTitle } from '../section-title'
 
 const contactFormSchema = z.object({
   name: z.string().min(3).max(100),
@@ -19,7 +20,6 @@ export function ContactForm() {
   const {
     handleSubmit,
     register,
-    reset,
     formState: { isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),

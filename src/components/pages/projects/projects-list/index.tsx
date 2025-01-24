@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ProjectCard } from './project-card'
 
-import { Project } from '../../../../types/page-info'
+import { Project } from '@/types/page-info'
 
 type ProjectsListProps = {
   projects: Project[]

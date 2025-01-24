@@ -12,11 +12,12 @@ export type Image = {
 export type KnownTech = {
   name: string
   startDate: string
-  imageSvg: Image[]
+  imageSvg: Image
 }
 
 export type Technology = {
   name: string
+  imageSvg: Image
 }
 
 export type ProjectSection = {

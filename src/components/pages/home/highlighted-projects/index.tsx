@@ -4,10 +4,10 @@ import { ProejctCard } from './project-card'
 import { Link } from '../../../link'
 import { Divider } from '../../../divider'
 import { SectionTitle } from '../../../section-title'
-import { Project } from '../../../../types/page-info'
+import { HomePageInfo } from '../../../../types/page-info'
 
 type HighlightedProjectsProps = {
-  projects: Project[]
+  projects: HomePageInfo | null | undefined
 }
 
 export function HighlightedProjects({ projects }: HighlightedProjectsProps) {
@@ -20,7 +20,6 @@ export function HighlightedProjects({ projects }: HighlightedProjectsProps) {
       <Divider className="mb-16" />
 
       <div>
-        {/* <ProejctCard /> */}
         {project?.map(item => (
           <div key={item.slug}>
             <ProejctCard project={item} />
