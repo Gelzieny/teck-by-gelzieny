@@ -19,7 +19,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
       <div className="absolute inset-0 z-[-1] bg-cover bg-center bg-no-repeat bg-opacity-50" />
       <SectionTitle
         subtitle="projetos"
-        title={project?.title}
+        title={project?.title || 'Título Padrão'}
         className="text-center items-center sm:[&>h3]:text-4xl"
       />
 

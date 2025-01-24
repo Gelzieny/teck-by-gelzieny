@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 type SectionTitleProps = {
-  title: string
+  title?: string
   subtitle?: string
   className?: string
 }
