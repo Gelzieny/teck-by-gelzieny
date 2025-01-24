@@ -64,6 +64,9 @@ async function getPages({
               }
               technologies {
                 name
+                imageSvg {
+                  url
+                }
               }
               liveProjectUrl
               githubUrl
@@ -112,8 +115,8 @@ export default function Project({ projectsData }: ProjectPageProps) {
 
   return (
     <>
-      <ProjectDetails />
-      <ProjectSections />
+      <ProjectDetails project={projectsData} />
+      <ProjectSections sections={projectsData.sections} />
     </>
   )
 }

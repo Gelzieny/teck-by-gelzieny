@@ -1,17 +1,12 @@
 import Image from 'next/image'
+import { ProjectSection } from '../../../../types/page-info'
 
-const sections = [
-  {
-    imgSrc: '/images/portfolio1.jpg',
-    title: 'portfolio1',
-  },
-  {
-    imgSrc: '/images/portfolio2.jpg',
-    title: 'portfolio2',
-  },
-]
+type ProjectSectionsProps = {
+  sections: ProjectSection[]
+}
 
-export function ProjectSections() {
+
+export function ProjectSections({ sections }: ProjectSectionsProps) {
   return (
     <section className="container my-5 md:my-5 flex flex-col gap-8 md:gap-32">
       {sections.map(section => (
@@ -25,7 +20,7 @@ export function ProjectSections() {
             height={672}
             className="w-full aspect-auto rounded-lg object-cover"
             alt={`Imagem da sessão ${section.title}`}
-            src={section.imgSrc}
+            src={section.image.url}
             unoptimized
           />
         </div>
