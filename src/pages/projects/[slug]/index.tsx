@@ -111,7 +111,7 @@ export async function getStaticProps({ params }: ProjectProps) {
       slug: params.slug,
     })
 
-    const project = data.project
+    const project = data
 
     if (!project) {
       return { notFound: true }
@@ -129,66 +129,66 @@ export async function getStaticProps({ params }: ProjectProps) {
   }
 }
 
-export async function generateMetadata({ params: { slug } }: ProjectProps) {
-  const query = `
-    query ProjectMetadata($slug: String!) {
-      project(where: { slug: $slug }) {
-        title
-        description {
-          text
-        }
-        thumbnail {
-          url
-        }
-      }
-    }
-  `
+// export async function generateMetadata({ params: { slug } }: ProjectProps) {
+//   const query = `
+//     query ProjectMetadata($slug: String!) {
+//       project(where: { slug: $slug }) {
+//         title
+//         description {
+//           text
+//         }
+//         thumbnail {
+//           url
+//         }
+//       }
+//     }
+//   `
 
-  try {
-    const data = await fetchHygraphData<{
-      project: {
-        title: string
-        description: { text: string }
-        thumbnail: { url: string }
-      }
-    }>(query, { slug })
+//   try {
+//     const data = await fetchHygraphData<{
+//       project: {
+//         title: string
+//         description: { text: string }
+//         thumbnail: { url: string }
+//       }
+//     }>(query, { slug })
 
-    const project = data.project
+//     const project = data.project
 
-    if (!project) {
-      return {
-        title: 'Projeto não encontrado',
-        description: 'O projeto solicitado não foi encontrado.',
-      }
-    }
+//     if (!project) {
+//       return {
+//         title: 'Projeto não encontrado',
+//         description: 'O projeto solicitado não foi encontrado.',
+//       }
+//     }
 
-    return {
-      title: project.title,
-      description: project.description.text,
-      openGraph: {
-        images: [
-          {
-            url: project.thumbnail.url,
-            width: 1200,
-            height: 630,
-          },
-        ],
-      },
-    }
-  } catch (error) {
-    console.error('Erro em generateMetadata:', error)
-    return {
-      title: 'Erro ao carregar metadados',
-      description: 'Houve um erro ao buscar os metadados do projeto.',
-    }
-  }
-}
+//     return {
+//       title: project.title,
+//       description: project.description.text,
+//       openGraph: {
+//         images: [
+//           {
+//             url: project.thumbnail.url,
+//             width: 1200,
+//             height: 630,
+//           },
+//         ],
+//       },
+//     }
+//   } catch (error) {
+//     console.error('Erro em generateMetadata:', error)
+//     return {
+//       title: 'Erro ao carregar metadados',
+//       description: 'Houve um erro ao buscar os metadados do projeto.',
+//     }
+//   }
+// }
 
 export default function Project({ projectsData }: ProjectPageProps) {
   return (
     <>
-      <ProjectDetails project={projectsData} />
-      <ProjectSections sections={projectsData?.sections} />
+      <ProjectDetails project={projectsData?.project} />
+      <ProjectSections sections={projectsData?.project?.sections} />
     </>
   )
 }
