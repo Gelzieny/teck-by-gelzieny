@@ -6,7 +6,7 @@ import { ProjectsList } from '@/components/pages/projects/projects-list'
 import { PageTitle } from '@/components/page-title'
 
 type ProjectsProps = {
-  projectsData: ProjectsPageData | null
+  projectsData: ProjectsPageData | null | undefined
 }
 
 async function getPages() {
@@ -63,7 +63,7 @@ async function getPages() {
       throw new Error('Dados não encontrados')
     }
 
-    return json.data.projects
+    return { projects: json.data.projects } as ProjectsPageData
   } catch (error) {
     console.error('Erro ao obter a página:', error)
     throw error
@@ -80,7 +80,7 @@ export async function getServerSideProps() {
   } catch (error) {
     console.error('Erro ao carregar os dados:', error)
     return {
-      props: { pageData: null, error: 'Erro ao carregar os dados' },
+      props: { projectsData: null },
     }
   }
 }
@@ -90,7 +90,7 @@ export default function Projects({ projectsData }: ProjectsProps) {
     <>
       <PageTitle title="Projetos" description="Projetos" />
       <PageIntroduction />
-      <ProjectsList projects={projectsData} />
+      <ProjectsList projects={projectsData?.projects || []} />
     </>
   )
 }
