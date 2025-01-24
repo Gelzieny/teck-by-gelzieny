@@ -90,7 +90,7 @@ export default function Projects({ projectsData }: ProjectsProps) {
     <>
       <PageTitle title="Projetos" description="Projetos" />
       <PageIntroduction />
-      <ProjectsList projects={projectsData} />
+      <ProjectsList projects={projectsData?.projects || []} />
     </>
   )
 }

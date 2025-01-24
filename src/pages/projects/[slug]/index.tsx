@@ -191,9 +191,8 @@ export default function Project({ projectsData }: ProjectPageProps) {
 
   return (
     <>
-      {/* <PageTitle title={projectsData?.title} description={projectsData?.title} /> */}
-      <ProjectDetails project={projectsData} />
-      <ProjectSections sections={projectsData?.sections} />
+      <ProjectDetails project={projectsData?.project} />
+      <ProjectSections sections={projectsData?.project.sections} />
     </>
   )
 }
