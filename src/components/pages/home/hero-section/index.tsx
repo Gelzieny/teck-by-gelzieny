@@ -36,7 +36,7 @@ export function HeroSection({ homeInfo }: HeroSectionProps) {
           </div>
           <div className="mt-6">
             <a
-              href="#"
+              href="/docs/curriculo.pdf"
               download
               className="inline-flex items-center gap-1 px-4 py-2 bg-main-color rounded-xl text-white-color tracking-widest font-semibold border border-transparent ease-in duration-300 hover:bg-transparent hover:text-main-color hover:border-main-color"
             >
