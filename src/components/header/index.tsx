@@ -34,7 +34,7 @@ export function Header() {
           href="/"
           className="text-main-color font-semibold text-4xl sm:text-3xl"
         >
-          Tech by Gelzieny.
+          Gelzieny.
         </Link>
         <nav className="flex items-center gap-4 sm:gap-5">
           <div className="sm:flex items-center gap-4 hidden sm:block">
