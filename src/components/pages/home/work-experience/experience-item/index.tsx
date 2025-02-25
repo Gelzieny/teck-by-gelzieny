@@ -62,6 +62,7 @@ export function ExperienceItem({ experience }: ExperienceItemProps) {
             width={30}
             height={30}
             alt={`Logo da empresa ${companyName}`}
+            className="rounded-full"
           />
         </div>
         <div className="h-full w-[1px]  bg-gray-300 dark:bg-gray-700" />
